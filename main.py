@@ -10,6 +10,9 @@ screen = pygame.display.set_mode(size)
 screen_rect = (0, 0, width, height)
 pygame.display.set_caption("braindead tf2 clicker by fatnet")
 
+config = open("data/userdata/config.txt", 'r+') # \\
+counter = int(config.readline())
+
 GRAVITY = 1
  
 def load_image(name, colorkey=None):
@@ -87,6 +90,12 @@ class Bullet(pygame.sprite.Sprite):
         if self.rect.colliderect(floor2.rect):
             self.kill()       
         if self.rect.colliderect(en.rect):
+            create_particles((0, 0), 'blood')
+            create_particles((999, 0), 'blood')
+            create_particles((499, 0), 'blood')
+            create_particles(pygame.mouse.get_pos(), 'steel')
+            create_particles((825, 425), 'meat')      
+            en.image = random.choice(enemies) 
             self.kill()          
 
 def create_particles(position, var):
@@ -171,9 +180,6 @@ me.add(player)
 clock = pygame.time.Clock()
 running = True
 
-config = open("data/userdata/config.txt", 'r+') # \\
-counter = int(config.readline())
-
 pygame.mixer.music.load("data/music/background.mp3") # \\
 pygame.mixer.music.play(-1)
 
@@ -207,14 +213,8 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN or (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):
             counter += 1
             Bullet()
-            create_particles((0, 0), 'blood')
-            create_particles((999, 0), 'blood')
-            create_particles((499, 0), 'blood')
-            create_particles(pygame.mouse.get_pos(), 'steel')
-            create_particles((825, 425), 'meat')
             text1 = basicfont.render(str(counter), True, (255, 165, 0))
-            textrect1 = text1.get_rect()
-            en.image = random.choice(enemies)
+            textrect1 = text1.get_rect()              
         if event.type == pygame.MOUSEMOTION:
             mouse_sprite.rect.x = event.pos[0]
             mouse_sprite.rect.y = event.pos[1]
