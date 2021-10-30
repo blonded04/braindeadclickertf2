@@ -194,7 +194,7 @@ me.add(player)
 clock = pygame.time.Clock()
 running = True
 
-pygame.mixer.Channel(0).play(pygame.mixer.Sound("data/sounds/background.wav"),
+pygame.mixer.Channel(0).play(pygame.mixer.Sound("data/music/background.mp3"),
                              loops=-1)  # \\
 
 mouse_group = pygame.sprite.Group()
